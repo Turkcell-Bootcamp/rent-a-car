@@ -1,5 +1,6 @@
 package com.example.rentacar.api.controller;
 
+import com.example.rentacar.dto.request.AddBrandRequestDto;
 import com.example.rentacar.dto.response.BrandResponse;
 import com.example.rentacar.dto.response.GetAllBrandResponse;
 import com.example.rentacar.manager.abstracts.BrandService;
@@ -28,12 +29,12 @@ public class BrandsController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Brand add(@RequestBody Brand brand) {
-        return service.add(brand);
+    public BrandResponse add(@RequestBody AddBrandRequestDto addBrandRequestDto) {
+        return service.add(addBrandRequestDto);
     }
 
     @PutMapping("/{id}")
-    public Brand update(@PathVariable int id, @RequestBody Brand brand) {
+    public BrandResponse update(@PathVariable int id, @RequestBody Brand brand) {
         return service.update(id, brand);
     }
 

@@ -1,5 +1,6 @@
 package com.example.rentacar.manager.concretes;
 
+import com.example.rentacar.dto.request.AddBrandRequestDto;
 import com.example.rentacar.dto.response.BrandResponse;
 import com.example.rentacar.dto.response.GetAllBrandResponse;
 import com.example.rentacar.manager.abstracts.BrandService;
@@ -30,15 +31,18 @@ public class BrandManager implements BrandService {
     }
 
     @Override
-    public Brand add(Brand brand) {
-        return brandRepository.save(brand);
+    public BrandResponse add(AddBrandRequestDto addBrandRequestDto) {
+        Brand brand = new Brand();
+        brand.setName(addBrandRequestDto.getName());
+        brandRepository.save(brand);
+        return new BrandResponse(brand.getName());
     }
 
     @Override
-    public Brand update(int id, Brand brand) {
+    public BrandResponse update(int id, Brand brand) {
         checkIfBrandExists(id);
         brand.setId(id);
-        return brandRepository.save(brand);
+        return new BrandResponse(brand.getName());
     }
 
     @Override
