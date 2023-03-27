@@ -1,6 +1,8 @@
 package com.example.rentacar.api.controller;
 
-import com.example.rentacar.business.abstracts.BrandService;
+import com.example.rentacar.dto.response.BrandResponse;
+import com.example.rentacar.dto.response.GetAllBrandResponse;
+import com.example.rentacar.manager.abstracts.BrandService;
 import com.example.rentacar.entities.Brand;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -15,12 +17,12 @@ public class BrandsController {
     private final BrandService service;
 
     @GetMapping
-    public List<Brand> getAll() {
+    public List<GetAllBrandResponse> getAll() {
         return service.getAll();
     }
 
     @GetMapping("/{id}")
-    public Brand getById(@PathVariable int id) {
+    public BrandResponse getById(@PathVariable int id) {
         return service.getById(id);
     }
 
