@@ -15,15 +15,17 @@ import java.util.List;
 @AllArgsConstructor
 @Table(name = "models")
 public class Model {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-    private String name;
 
-    @ManyToOne
-    @JoinColumn(name = "brand_id")
-    private Brand brand;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
 
-    @OneToMany(mappedBy = "model")
-    private List<Car> cars;
+	private String name;
+
+	@ManyToOne
+	@JoinColumn(name = "brand_id")
+	private Brand brand;
+
+	@OneToMany(mappedBy = "model")
+	private List<Car> cars;
 }

@@ -8,9 +8,14 @@ import com.example.rentacar.entities.Brand;
 import java.util.List;
 
 public interface BrandService {
-    List<GetAllBrandResponse> getAll();
-    BrandResponse getById(int id);
-    BrandResponse add(AddBrandRequestDto addBrandRequestDto);
-    BrandResponse update(int id, Brand brand);
-    void delete(int id);
+
+	List<GetAllBrandResponse> getAll();
+
+	BrandResponse getById(int id);
+
+	BrandResponse add(AddBrandRequestDto addBrandRequestDto);
+
+	BrandResponse update(int id, Brand brand);
+
+	void delete(int id);
 }

@@ -15,32 +15,38 @@ import java.util.List;
 @AllArgsConstructor
 @RequestMapping("/api/brands")
 public class BrandsController {
-    private final BrandService service;
 
-    @GetMapping
-    public List<GetAllBrandResponse> getAll() {
-        return service.getAll();
-    }
+	private final BrandService brandService;
 
-    @GetMapping("/{id}")
-    public BrandResponse getById(@PathVariable int id) {
-        return service.getById(id);
-    }
+	@GetMapping
+	public List<GetAllBrandResponse> getAll() {
 
-    @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public BrandResponse add(@RequestBody AddBrandRequestDto addBrandRequestDto) {
-        return service.add(addBrandRequestDto);
-    }
+		return brandService.getAll();
+	}
 
-    @PutMapping("/{id}")
-    public BrandResponse update(@PathVariable int id, @RequestBody Brand brand) {
-        return service.update(id, brand);
-    }
+	@GetMapping("/{id}")
+	public BrandResponse getById(@PathVariable int id) {
 
-    @DeleteMapping("/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(@PathVariable int id) {
-        service.delete(id);
-    }
+		return brandService.getById(id);
+	}
+
+	@PostMapping
+	@ResponseStatus(HttpStatus.CREATED)
+	public BrandResponse add(@RequestBody AddBrandRequestDto addBrandRequestDto) {
+
+		return brandService.add(addBrandRequestDto);
+	}
+
+	@PutMapping("/{id}")
+	public BrandResponse update(@PathVariable int id, @RequestBody Brand brand) {
+
+		return brandService.update(id, brand);
+	}
+
+	@DeleteMapping("/{id}")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void delete(@PathVariable int id) {
+
+		brandService.delete(id);
+	}
 }

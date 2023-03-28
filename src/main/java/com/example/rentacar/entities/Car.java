@@ -20,7 +20,6 @@ public class Car {
     private String plate;
     private int state;
     private double dailyPrice;
-
     @ManyToOne
     @JoinColumn(name = "model_id")
     private Model model;
