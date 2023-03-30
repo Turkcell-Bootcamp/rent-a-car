@@ -17,7 +17,6 @@ import java.util.List;
 public class BrandManager implements BrandService {
 
 	private final BrandRepository brandRepository;
-
 	private final ModelMapper modelMapper;
 
 	@Override
