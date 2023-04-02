@@ -3,6 +3,7 @@ package com.example.rentacar.business.abstracts;
 import com.example.rentacar.dto.request.add.AddCarRequestDto;
 import com.example.rentacar.dto.request.update.UpdateCarRequestDto;
 import com.example.rentacar.dto.response.CarResponse;
+import com.example.rentacar.entities.Car;
 
 import java.util.List;
 
@@ -10,7 +11,9 @@ public interface CarService {
 
 	List<CarResponse> getAll();
 
-	CarResponse getById(int id);
+	CarResponse findById(int id);
+
+	Car findByPlate(String plate);
 
 	CarResponse add(AddCarRequestDto addCarRequestDto);
 

@@ -31,12 +31,18 @@ public class CarManager implements CarService {
 	}
 
 	@Override
-	public CarResponse getById(int id) {
+	public CarResponse findById(int id) {
 
 		return carRepository
 				.findById(id)
 				.map(item -> modelMapper.map(item, CarResponse.class))
-				.orElseThrow(() -> new RuntimeException("Araba bulunamadı"));
+				.orElseThrow(() -> new RuntimeException("Araba id bulunamadı"));
+	}
+
+	@Override
+	public Car findByPlate(String plate) {
+
+		return carRepository.findByPlate(plate);
 	}
 
 	@Override
@@ -77,7 +83,7 @@ public class CarManager implements CarService {
 
 	private void checkIfCarExistsById(int id) {
 
-		if (carRepository.existsById(id)) {
+		if (!carRepository.existsById(id)) {
 			throw new RuntimeException("Araba id bulunamadı");
 		}
 	}
