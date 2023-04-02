@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Entity
 @Setter
 @Getter
@@ -13,8 +15,13 @@ import lombok.Setter;
 @AllArgsConstructor
 @Table(name = "brands")
 public class Brand {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-    private String name;
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
+
+	private String name;
+
+	@OneToMany(mappedBy = "brand")
+	private List<Model> models;
 }

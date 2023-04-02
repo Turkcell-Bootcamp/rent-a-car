@@ -1,10 +1,9 @@
 package com.example.rentacar.api.controller;
 
-import com.example.rentacar.dto.request.AddBrandRequestDto;
+import com.example.rentacar.business.abstracts.BrandService;
+import com.example.rentacar.dto.request.add.AddBrandRequestDto;
+import com.example.rentacar.dto.request.update.UpdateBrandRequestDto;
 import com.example.rentacar.dto.response.BrandResponse;
-import com.example.rentacar.dto.response.GetAllBrandResponse;
-import com.example.rentacar.manager.abstracts.BrandService;
-import com.example.rentacar.entities.Brand;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +18,8 @@ public class BrandsController {
 	private final BrandService brandService;
 
 	@GetMapping
-	public List<GetAllBrandResponse> getAll() {
+	@ResponseStatus(HttpStatus.OK)
+	public List<BrandResponse> getAll() {
 
 		return brandService.getAll();
 	}
@@ -38,9 +38,10 @@ public class BrandsController {
 	}
 
 	@PutMapping("/{id}")
-	public BrandResponse update(@PathVariable int id, @RequestBody Brand brand) {
+	@ResponseStatus(HttpStatus.CREATED)
+	public BrandResponse update(@PathVariable int id, @RequestBody UpdateBrandRequestDto updateBrandRequestDto) {
 
-		return brandService.update(id, brand);
+		return brandService.update(id, updateBrandRequestDto);
 	}
 
 	@DeleteMapping("/{id}")

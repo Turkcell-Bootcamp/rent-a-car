@@ -1,4 +1,4 @@
-package com.example.rentacar.dto.request;
+package com.example.rentacar.dto.request.add;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
