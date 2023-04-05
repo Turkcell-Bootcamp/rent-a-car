@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -12,4 +14,12 @@ import lombok.Setter;
 public class UpdateMaintenanceRequestDto {
 
 	private int carId;
+
+	private String information;
+
+	private boolean isCompleted;
+
+	private LocalDateTime startDate;
+
+	private LocalDateTime endDate;
 }

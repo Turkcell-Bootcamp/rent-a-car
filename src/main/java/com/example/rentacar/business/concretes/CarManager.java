@@ -7,6 +7,7 @@ import com.example.rentacar.dto.response.ModelResponse;
 import com.example.rentacar.entities.Car;
 import com.example.rentacar.business.abstracts.CarService;
 import com.example.rentacar.entities.Model;
+import com.example.rentacar.entities.enums.State;
 import com.example.rentacar.repository.CarRepository;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -40,12 +41,6 @@ public class CarManager implements CarService {
 	}
 
 	@Override
-	public Car findByPlate(String plate) {
-
-		return carRepository.findByPlate(plate);
-	}
-
-	@Override
 	public CarResponse add(AddCarRequestDto addCarRequestDto) {
 
 		existsByPlateIgnoreCase(addCarRequestDto.getPlate());
@@ -72,6 +67,14 @@ public class CarManager implements CarService {
 
 		checkIfCarExistsById(id);
 		carRepository.deleteById(id);
+	}
+
+	@Override
+	public void changeState(int carId, State state) {
+
+		Car car = carRepository.findById(carId).orElseThrow();
+		car.setState(state);
+		carRepository.save(car);
 	}
 
 	private void existsByPlateIgnoreCase(String plate) {

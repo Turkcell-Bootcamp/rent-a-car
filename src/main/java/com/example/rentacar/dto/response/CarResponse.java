@@ -1,5 +1,6 @@
 package com.example.rentacar.dto.response;
 
+import com.example.rentacar.entities.enums.State;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,7 +16,7 @@ public class CarResponse {
 
 	private int modelYear;
 
-	private int state;
+	private State state;
 
 	private String plate;
 

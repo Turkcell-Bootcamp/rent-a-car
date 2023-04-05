@@ -4,4 +4,8 @@ import com.example.rentacar.entities.Maintenance;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface MaintanenceRepository extends JpaRepository<Maintenance, Integer> {
+
+	Maintenance findByCarIdAndIsCompletedIsFalse(int carId);
+
+	boolean existsByCarIdAndIsCompletedIsFalse(int carId);
 }
