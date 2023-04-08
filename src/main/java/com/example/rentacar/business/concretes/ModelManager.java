@@ -14,6 +14,7 @@ import java.util.List;
 
 @Service
 @AllArgsConstructor
+
 public class ModelManager implements ModelService {
 
 	private ModelRepository modelRepository;

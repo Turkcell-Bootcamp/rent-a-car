@@ -19,33 +19,39 @@ public class MaintenanceController {
 
 	@GetMapping
 	public List<MaintenanceResponse> getAll() {
+
 		return maintenanceService.getAll();
 	}
 
 	@GetMapping("/{id}")
 	public MaintenanceResponse getById(@PathVariable int id) {
+
 		return maintenanceService.getById(id);
 	}
 
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public MaintenanceResponse add(@RequestBody AddMaintanenceRequestDto request) {
+
 		return maintenanceService.add(request);
 	}
 
-	@PutMapping("/return/{carId}")
-	public MaintenanceResponse returnCarFromMaintenance(@PathVariable int carId) {
+	@PutMapping("/return")
+	public MaintenanceResponse returnCarFromMaintenance(@RequestParam int carId) {
+
 		return maintenanceService.returnCarFromMaintenance(carId);
 	}
 
 	@PutMapping("/{id}")
 	public MaintenanceResponse update(@PathVariable int id, @RequestBody UpdateMaintenanceRequestDto request) {
+
 		return maintenanceService.update(id, request);
 	}
 
 	@DeleteMapping("/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void delete(@PathVariable int id) {
+
 		maintenanceService.delete(id);
 	}
 }
