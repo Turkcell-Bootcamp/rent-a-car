@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -86,6 +87,8 @@ public class MaintenanceManager implements MaintenanceService {
 	public void delete(int id) {
 
 		checkIfMaintenanceExists(id);
+		Optional<Maintenance> maintenance = maintanenceRepository.findById(id);
+		carService.changeState(maintenance.get().getCar().getId(), State.AVAILABLE);
 		maintanenceRepository.deleteById(id);
 	}
 

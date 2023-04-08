@@ -21,15 +21,17 @@ public class Rental {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	int id;
+	private int id;
 
-	int carId;
+	private double dailyPrice;
 
-	double dailyPrice;
+	private int rentedForDays;
 
-	int rentedForDays;
+	private double totalPrice;
 
-	double totalPrice;
+	private LocalDateTime startDate;
 
-	LocalDateTime startDate;
+	@ManyToOne
+	@JoinColumn(name = "car_id")
+	private Car car;
 }

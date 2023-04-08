@@ -31,7 +31,7 @@ public class RentalManager implements RentalService {
 	public RentalResponse add(RentalRequest renatalRequest) {
 
 		CarResponse carResponse = carManager.findById(renatalRequest.getCarId());
-		checkIfCarStateNotAvailable(carResponse);
+		checkIfCarStateAvailable(carResponse);
 		Rental rental = modelMapper.map(renatalRequest, Rental.class);
 		rental.setDailyPrice(carResponse.getDailyPrice());
 		rental.setStartDate(LocalDateTime.now());
@@ -52,11 +52,11 @@ public class RentalManager implements RentalService {
 	public void delete(int id) {
 
 		Rental rental = rentalRepository.findById(id).orElseThrow(() -> new RuntimeException("Kiralama id bulunamadı"));
-		carManager.changeState(rental.getCarId(), State.AVAILABLE);
+		carManager.changeState(rental.getCar().getId(), State.AVAILABLE);
 		rentalRepository.delete(rental);
 	}
 
-	private void checkIfCarStateNotAvailable(CarResponse carResponse) {
+	private void checkIfCarStateAvailable(CarResponse carResponse) {
 
 		if (!carResponse.getState().equals(State.AVAILABLE)) {
 			throw new RuntimeException("Araç şuan kiralanamaz.");
