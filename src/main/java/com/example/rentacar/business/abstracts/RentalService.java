@@ -1,6 +1,6 @@
 package com.example.rentacar.business.abstracts;
 
-import com.example.rentacar.dto.request.add.RentalRequest;
+import com.example.rentacar.dto.request.add.AddRentalRequestDto;
 import com.example.rentacar.dto.response.RentalResponse;
 
 import java.util.List;
@@ -10,7 +10,7 @@ import java.util.List;
 */
 public interface RentalService {
 
-	RentalResponse add(RentalRequest renatalRequest);
+	RentalResponse add(AddRentalRequestDto renatalRequest);
 	List<RentalResponse> getAll();
 	void delete(int id);
 }

@@ -5,7 +5,7 @@ package com.example.rentacar.api.controller;
 */
 
 import com.example.rentacar.business.abstracts.RentalService;
-import com.example.rentacar.dto.request.add.RentalRequest;
+import com.example.rentacar.dto.request.add.AddRentalRequestDto;
 import com.example.rentacar.dto.response.RentalResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -29,9 +29,9 @@ public class RentalsController {
 
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public RentalResponse add(@RequestBody RentalRequest rentalRequest) {
+	public RentalResponse add(@RequestBody AddRentalRequestDto addRentalRequestDto) {
 
-		return rentalService.add(rentalRequest);
+		return rentalService.add(addRentalRequestDto);
 	}
 
 	@DeleteMapping("/{id}")

@@ -1,7 +1,7 @@
 package com.example.rentacar.business.concretes;
 
 import com.example.rentacar.business.abstracts.RentalService;
-import com.example.rentacar.dto.request.add.RentalRequest;
+import com.example.rentacar.dto.request.add.AddRentalRequestDto;
 import com.example.rentacar.dto.response.CarResponse;
 import com.example.rentacar.dto.response.RentalResponse;
 import com.example.rentacar.entities.Rental;
@@ -28,10 +28,10 @@ public class RentalManager implements RentalService {
 	private ModelMapper modelMapper;
 
 	@Override
-	public RentalResponse add(RentalRequest renatalRequest) {
+	public RentalResponse add(AddRentalRequestDto renatalRequest) {
 
 		CarResponse carResponse = carManager.findById(renatalRequest.getCarId());
-		checkIfCarStateAvailable(carResponse);
+		checkIfCarStateNotAvailable(carResponse);
 		Rental rental = modelMapper.map(renatalRequest, Rental.class);
 		rental.setDailyPrice(carResponse.getDailyPrice());
 		rental.setStartDate(LocalDateTime.now());
@@ -56,7 +56,7 @@ public class RentalManager implements RentalService {
 		rentalRepository.delete(rental);
 	}
 
-	private void checkIfCarStateAvailable(CarResponse carResponse) {
+	private void checkIfCarStateNotAvailable(CarResponse carResponse) {
 
 		if (!carResponse.getState().equals(State.AVAILABLE)) {
 			throw new RuntimeException("Araç şuan kiralanamaz.");
