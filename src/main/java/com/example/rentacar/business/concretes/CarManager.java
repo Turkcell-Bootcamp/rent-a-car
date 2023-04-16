@@ -28,7 +28,7 @@ public class CarManager implements CarService {
 	@Override
 	public List<CarResponse> getAll() {
 
-		return carRepository.findAll().stream().map(item -> modelMapper.map(item, CarResponse.class)).toList();
+		return carRepository.findAll().stream().map(car -> modelMapper.map(car, CarResponse.class)).toList();
 	}
 
 	@Override
@@ -36,7 +36,7 @@ public class CarManager implements CarService {
 
 		return carRepository
 				.findById(id)
-				.map(item -> modelMapper.map(item, CarResponse.class))
+				.map(car -> modelMapper.map(car, CarResponse.class))
 				.orElseThrow(() -> new RuntimeException("Araba id bulunamadı"));
 	}
 

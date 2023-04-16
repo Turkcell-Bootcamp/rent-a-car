@@ -7,7 +7,7 @@ import com.example.rentacar.dto.request.update.UpdateMaintenanceRequestDto;
 import com.example.rentacar.dto.response.MaintenanceResponse;
 import com.example.rentacar.entities.Maintenance;
 import com.example.rentacar.entities.enums.State;
-import com.example.rentacar.repository.MaintanenceRepository;
+import com.example.rentacar.repository.MaintenanceRepository;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -20,7 +20,7 @@ import java.util.Optional;
 @AllArgsConstructor
 public class MaintenanceManager implements MaintenanceService {
 
-	private final MaintanenceRepository maintanenceRepository;
+	private final MaintenanceRepository maintenanceRepository;
 
 	private final CarService carService;
 
@@ -29,7 +29,7 @@ public class MaintenanceManager implements MaintenanceService {
 	@Override
 	public List<MaintenanceResponse> getAll() {
 
-		List<Maintenance> maintenances = maintanenceRepository.findAll();
+		List<Maintenance> maintenances = maintenanceRepository.findAll();
 
 		return maintenances.stream().map(maintenance -> modelMapper.map(maintenance, MaintenanceResponse.class)).toList();
 	}
@@ -38,7 +38,7 @@ public class MaintenanceManager implements MaintenanceService {
 	public MaintenanceResponse getById(int id) {
 
 		checkIfMaintenanceExists(id);
-		Maintenance maintenance = maintanenceRepository.findById(id).orElseThrow();
+		Maintenance maintenance = maintenanceRepository.findById(id).orElseThrow();
 
 		return modelMapper.map(maintenance, MaintenanceResponse.class);
 	}
@@ -47,10 +47,10 @@ public class MaintenanceManager implements MaintenanceService {
 	public MaintenanceResponse returnCarFromMaintenance(int carId) {
 
 		checkIfCarIsNotUnderMaintenance(carId);
-		Maintenance maintenance = maintanenceRepository.findByCarIdAndIsCompletedIsFalse(carId);
+		Maintenance maintenance = maintenanceRepository.findByCarIdAndIsCompletedIsFalse(carId);
 		maintenance.setCompleted(true);
 		maintenance.setEndDate(LocalDateTime.now());
-		maintanenceRepository.save(maintenance); // Update
+		maintenanceRepository.save(maintenance); // Update
 		carService.changeState(carId, State.AVAILABLE);
 
 		return modelMapper.map(maintenance, MaintenanceResponse.class);
@@ -66,7 +66,7 @@ public class MaintenanceManager implements MaintenanceService {
 		maintenance.setCompleted(false);
 		maintenance.setStartDate(LocalDateTime.now());
 		maintenance.setEndDate(null);
-		maintanenceRepository.save(maintenance);
+		maintenanceRepository.save(maintenance);
 		carService.changeState(request.getCarId(), State.MAINTENANCE);
 
 		return modelMapper.map(maintenance, MaintenanceResponse.class);
@@ -78,7 +78,7 @@ public class MaintenanceManager implements MaintenanceService {
 		checkIfMaintenanceExists(id);
 		Maintenance maintenance = modelMapper.map(request, Maintenance.class);
 		maintenance.setId(id);
-		maintanenceRepository.save(maintenance);
+		maintenanceRepository.save(maintenance);
 
 		return modelMapper.map(maintenance, MaintenanceResponse.class);
 	}
@@ -87,28 +87,28 @@ public class MaintenanceManager implements MaintenanceService {
 	public void delete(int id) {
 
 		checkIfMaintenanceExists(id);
-		Optional<Maintenance> maintenance = maintanenceRepository.findById(id);
+		Optional<Maintenance> maintenance = maintenanceRepository.findById(id);
 		carService.changeState(maintenance.get().getCar().getId(), State.AVAILABLE);
-		maintanenceRepository.deleteById(id);
+		maintenanceRepository.deleteById(id);
 	}
 
 	private void checkIfMaintenanceExists(int id) {
 
-		if (!maintanenceRepository.existsById(id)) {
+		if (!maintenanceRepository.existsById(id)) {
 			throw new RuntimeException("Böyle bir bakım bilgisine ulaşılamadı!");
 		}
 	}
 
 	private void checkIfCarIsNotUnderMaintenance(int carId) {
 
-		if (!maintanenceRepository.existsByCarIdAndIsCompletedIsFalse(carId)) {
+		if (!maintenanceRepository.existsByCarIdAndIsCompletedIsFalse(carId)) {
 			throw new RuntimeException("Bakımda böyle bir araç bulunamadı!");
 		}
 	}
 
 	private void checkIfCarUnderMaintenance(AddMaintanenceRequestDto request) {
 
-		if (maintanenceRepository.existsByCarIdAndIsCompletedIsFalse(request.getCarId())) {
+		if (maintenanceRepository.existsByCarIdAndIsCompletedIsFalse(request.getCarId())) {
 			throw new RuntimeException("Araç şuanda bakımda!");
 		}
 	}

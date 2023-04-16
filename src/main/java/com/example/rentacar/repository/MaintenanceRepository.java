@@ -3,7 +3,7 @@ package com.example.rentacar.repository;
 import com.example.rentacar.entities.Maintenance;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface MaintanenceRepository extends JpaRepository<Maintenance, Integer> {
+public interface MaintenanceRepository extends JpaRepository<Maintenance, Integer> {
 
 	Maintenance findByCarIdAndIsCompletedIsFalse(int carId);
 

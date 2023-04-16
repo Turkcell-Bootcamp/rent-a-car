@@ -1,6 +1,7 @@
 package com.example.rentacar.adapters;
 
 import com.example.rentacar.business.abstracts.PosService;
+import com.example.rentacar.common.constants.Messages;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +19,6 @@ public class FakePosServiceAdapter implements PosService {
 
 		boolean isPaymentSuccesful = new Random().nextBoolean();
 		if (!isPaymentSuccesful)
-			throw new RuntimeException("Ödeme reddedildi");
+			throw new RuntimeException(Messages.Payment.Failed);
 	}
 }
